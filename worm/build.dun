@@ -1,0 +1,36 @@
+module {
+
+	name 'worm';
+	
+	dependencies {
+		module 'caterpillar';	
+	}
+
+	clear {
+		remove '[%=module.builddir%]';
+	}
+
+	compile {
+		cc { 
+			arg '-fPIC';
+			src { path './src/'; } 
+			destdir './compiled/'; 
+		}
+	}
+
+	package {
+		ar { srcdir './compiled/'; destfile './libworm.a'; }
+	}	
+
+
+	export {
+		lib {
+			path '.';
+			libname 'worm';
+		}
+		headers {
+			dir './src/';
+		}
+	}
+
+}

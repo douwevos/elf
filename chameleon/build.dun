@@ -1,0 +1,42 @@
+module {
+
+	name 'chameleon';
+	
+	dependencies {
+		module 'uchardet';
+		module 'gtk3';
+		module 'worm';
+	}
+
+	clear {
+		remove '[%=module.builddir%]';
+	}
+
+	compile {
+		cc {
+			natpad.cc.args {}
+			arg '-fPIC';
+			src { path './src/'; }  
+			destdir './compiled/'; 
+			depdir './deps/'; 
+		}
+		
+	}
+
+	package {
+		ar { srcdir './compiled/'; destfile './libchameleon.a'; }
+	}	
+
+
+	export {
+		lib {
+			path '.';
+			libname 'chameleon';
+		}
+		headers {
+			dir './src/';
+		}
+	}
+
+
+}
